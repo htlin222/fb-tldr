@@ -5,6 +5,15 @@ All notable changes to fb-tldr. Format follows
 `extension/manifest.json`. The release workflow publishes the section whose
 heading matches the pushed tag (e.g. tag `v0.1.0` → the `## [0.1.0]` block).
 
+## [0.1.1] - 2026-05-27
+
+### Fixed
+
+- TL;DR buttons no longer **accumulate** when toggling 顯示較多 / 顯示較少.
+  Facebook renders a fresh See-more node on each toggle; injection now dedups
+  on the post's message container (one button per post) instead of per node.
+  Covered by a `linkedom` smoke test (`pnpm test`).
+
 ## [0.1.0] - 2026-05-27
 
 ### Added

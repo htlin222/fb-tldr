@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "fb-tldr — Facebook TL;DR",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Adds an inline TL;DR button to each Facebook News Feed post. Summaries (繁體中文) via Cloudflare Workers AI, behind Zero Trust.",
   "permissions": ["storage", "tabs"],
   "host_permissions": ["https://www.facebook.com/*"],

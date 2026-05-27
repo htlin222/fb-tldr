@@ -172,9 +172,11 @@ async function summarizeFor(btn) {
 /* ---------- injection (self-healing) ---------- */
 
 function inject(seeMore) {
-  // Skip if our button already sits right after this See-more.
-  const next = seeMore.nextElementSibling;
-  if (next && next.classList && next.classList.contains("fbtldr-btn")) return;
+  // One button per post. Facebook renders a NEW See-more/less node every time
+  // the user toggles 顯示較多/顯示較少, so a per-node check (nextElementSibling)
+  // misses the existing button and they pile up. Dedup on the message container.
+  const msg = seeMore.closest(MSG_SEL);
+  if (!msg || msg.querySelector(".fbtldr-btn")) return;
 
   const btn = document.createElement("button");
   btn.className = "fbtldr-btn";
