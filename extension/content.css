@@ -1,0 +1,118 @@
+.fbtldr-btn {
+  display: inline-block;
+  vertical-align: baseline;
+  margin-left: 6px;
+  font: 600 12px/1 system-ui, -apple-system, "Segoe UI", sans-serif;
+  color: #fff;
+  background: #f6821f; /* Cloudflare orange */
+  border: none;
+  border-radius: 6px;
+  padding: 4px 8px;
+  cursor: pointer;
+}
+.fbtldr-btn:hover {
+  background: #e0700f;
+}
+.fbtldr-btn:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.fbtldr-box {
+  margin: 8px 12px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  background: #f5f6f7;
+  color: #1c1e21;
+  font: 14px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif;
+  white-space: pre-wrap;
+}
+.fbtldr-summary {
+  white-space: pre-wrap;
+}
+.fbtldr-toggle {
+  display: inline-block;
+  margin-top: 8px;
+  padding: 0;
+  background: none;
+  border: none;
+  color: #f6821f;
+  font: 600 12px/1 system-ui, -apple-system, "Segoe UI", sans-serif;
+  cursor: pointer;
+}
+.fbtldr-toggle:hover {
+  text-decoration: underline;
+}
+.fbtldr-loading {
+  color: #65676b;
+  font-style: italic;
+}
+
+/* body parked off-screen during pending: invisible but still rendered so
+   innerText returns the full, expanded text (no on-screen flash) */
+.fbtldr-offscreen {
+  position: absolute !important;
+  left: -99999px !important;
+  top: 0 !important;
+  width: 500px !important;
+}
+
+/* shimmer skeleton shown while the summary is pending */
+.fbtldr-skel {
+  height: 12px;
+  margin: 9px 0;
+  border-radius: 6px;
+  background-color: rgba(0, 0, 0, 0.08);
+  background-image: linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 0) 0,
+    rgba(0, 0, 0, 0.12) 50%,
+    rgba(0, 0, 0, 0) 100%
+  );
+  background-size: 200% 100%;
+  background-repeat: no-repeat;
+  animation: fbtldr-shimmer 1.2s infinite;
+}
+.fbtldr-skel-short {
+  width: 55%;
+}
+@keyframes fbtldr-shimmer {
+  0% {
+    background-position: -150% 0;
+  }
+  100% {
+    background-position: 150% 0;
+  }
+}
+.fbtldr-error {
+  background: #fdecea;
+  color: #b3261e;
+}
+.fbtldr-auth {
+  background: #e8f0fe;
+  color: #174ea6;
+}
+
+@media (prefers-color-scheme: dark) {
+  .fbtldr-box {
+    background: #242526;
+    color: #e4e6eb;
+  }
+  .fbtldr-skel {
+    background-color: rgba(255, 255, 255, 0.08);
+    background-image: linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0) 0,
+      rgba(255, 255, 255, 0.14) 50%,
+      rgba(255, 255, 255, 0) 100%
+    );
+  }
+  .fbtldr-error {
+    background: #3a1f1d;
+    color: #f5a9a0;
+  }
+  .fbtldr-auth {
+    background: #1d2a3a;
+    color: #9fc2f5;
+  }
+}

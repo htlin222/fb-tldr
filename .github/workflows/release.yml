@@ -1,0 +1,64 @@
+name: Release CRX
+
+# Cut a release by bumping extension/manifest.json + CHANGELOG.md, then:
+#   git tag v0.1.0 && git push origin v0.1.0
+# The tag's version must match manifest.json. Requires repo secret CRX_PRIVATE_KEY
+# (the RSA private key PEM used to sign the .crx — determines the extension ID).
+
+on:
+  push:
+    tags: ["v*.*.*"]
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      - name: Restore signing key
+        env:
+          CRX_PRIVATE_KEY: ${{ secrets.CRX_PRIVATE_KEY }}
+        run: printf '%s\n' "$CRX_PRIVATE_KEY" > key.pem
+
+      - name: Build .crx
+        run: pnpm build:crx
+
+      - name: Resolve version + release notes
+        id: meta
+        run: |
+          VERSION=$(node -p "require('./extension/manifest.json').version")
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          TAG="${GITHUB_REF_NAME#v}"
+          if [ "$TAG" != "$VERSION" ]; then
+            echo "::error::tag v$TAG does not match manifest version $VERSION"
+            exit 1
+          fi
+          # Extract the CHANGELOG section for this version into notes.md
+          awk -v v="$VERSION" '
+            $0 ~ "^## \\[" v "\\]" {f=1; next}
+            f && /^## \[/ {exit}
+            f {print}
+          ' CHANGELOG.md > notes.md
+          [ -s notes.md ] || echo "Release $VERSION" > notes.md
+
+      - name: Publish GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          body_path: notes.md
+          files: |
+            fb-tldr-${{ steps.meta.outputs.version }}.crx
+            fb-tldr-${{ steps.meta.outputs.version }}.zip

@@ -1,0 +1,22 @@
+# secrets
+.env
+*.env
+.dev.vars
+
+# signing keys — NEVER commit
+*.pem
+key.pem
+
+# personal capture: contains FB user id, fb_dtsg CSRF tokens, feed content
+*.har
+fb.har
+
+# the extension's own HTML is source — override a global *.html ignore
+!extension/*.html
+
+# deps / build artifacts
+node_modules/
+.wrangler/
+dist/
+*.crx
+*.zip

@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="popup.css" />
+  </head>
+  <body>
+    <header>
+      <h1>fb-tldr</h1>
+      <label class="switch" title="開啟 / 關閉">
+        <input type="checkbox" id="toggle" />
+        <span class="slider"></span>
+      </label>
+    </header>
+
+    <p id="state-label" class="state">已關閉</p>
+
+    <div class="auth">
+      <span id="auth-status" class="auth-status">尚未登入</span>
+      <button id="signin" type="button">Sign in to Cloudflare</button>
+    </div>
+
+    <p class="hint">在 Facebook 動態消息每則貼文按下 <b>TL;DR</b> 即可摘要（繁體中文）。</p>
+
+    <button id="settings" class="link" type="button">⚙ 設定 Worker 網址</button>
+
+    <script src="popup.js"></script>
+  </body>
+</html>

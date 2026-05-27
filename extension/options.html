@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="options.css" />
+  </head>
+  <body>
+    <h1>fb-tldr 設定</h1>
+
+    <label for="worker">Cloudflare Worker 網址</label>
+    <p class="hint">
+      你部署的 Worker 網址（例如 <code>https://fb-tldr.example.com</code>）。
+      儲存時會請求存取該網域的權限。
+    </p>
+    <div class="row">
+      <input id="worker" type="url" placeholder="https://fb-tldr.example.com" />
+      <button id="save" type="button">儲存</button>
+    </div>
+
+    <p id="status" class="status"></p>
+
+    <script src="options.js"></script>
+  </body>
+</html>
