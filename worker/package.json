@@ -4,9 +4,9 @@
   "private": true,
   "description": "Cloudflare Worker proxy that summarizes Facebook posts via Workers AI, behind Cloudflare Access.",
   "scripts": {
-    "dev": "wrangler dev",
-    "deploy": "wrangler deploy",
-    "tail": "wrangler tail"
+    "dev": "op run --env-file=.env -- wrangler dev",
+    "deploy": "op run --env-file=.env -- wrangler deploy",
+    "tail": "op run --env-file=.env -- wrangler tail"
   },
   "devDependencies": {
     "wrangler": "^3.90.0"
